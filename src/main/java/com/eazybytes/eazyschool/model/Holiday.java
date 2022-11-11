@@ -9,7 +9,7 @@ public class Holiday {
     private final Type type;
 
     public enum Type {
-        FESTIVAL, FEDERAL
+        FESTIVAL, FEDERAL, TRADITIONAL
     }
 
     public Holiday(String day, String reason, Type type) {
