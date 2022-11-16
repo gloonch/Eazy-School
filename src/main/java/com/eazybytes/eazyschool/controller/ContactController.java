@@ -30,7 +30,9 @@ public class ContactController {
 
     @RequestMapping(value = "/saveMsg" ,method = RequestMethod.POST)
     public ModelAndView saveMessage(Contact contact) {
+        contactService.setCounter(contactService.getCounter() + 1);
         contactService.saveMessageDetail(contact);
+        log.info("Number of times the Contact form is submitted : " + contactService.getCounter());
         return new ModelAndView("redirect:/contact");
     }
 }
