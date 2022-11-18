@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,11 +29,21 @@ public class ContactController {
         return "contact.html";
     }
 
+//    @RequestMapping(value = "/saveMsg" ,method = RequestMethod.POST)
+//    public ModelAndView saveMessage(Contact contact) {
+//        contactService.setCounter(contactService.getCounter() + 1);
+//        contactService.saveMessageDetail(contact);
+//        log.info("Number of times the Contact form is submitted : " + contactService.getCounter());
+//        return new ModelAndView("redirect:/contact");
+//    }
+
     @RequestMapping(value = "/saveMsg" ,method = RequestMethod.POST)
-    public ModelAndView saveMessage(Contact contact) {
-        contactService.setCounter(contactService.getCounter() + 1);
+    public String saveMessage(Contact contact, Errors errors) {
+        if (errors.hasErrors()){
+            log.error("Contact from validation failed due to : " + errors.toString());
+            return "contact.html";
+        }
         contactService.saveMessageDetail(contact);
-        log.info("Number of times the Contact form is submitted : " + contactService.getCounter());
-        return new ModelAndView("redirect:/contact");
+        return "redirect:/contact";
     }
 }

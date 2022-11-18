@@ -5,7 +5,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-public class Contact {
+public class Contact extends BaseEntity {
+
+    private int contact_id;
 
     @NotBlank(message = "Name must not be blank")
     @Size(min = 3, message = "Name must be at least 3 characters long")
@@ -26,6 +28,8 @@ public class Contact {
     @NotBlank(message = "Message must not be blank")
     @Size(min = 10, message = "Message must be at least 10 characters long")
     private String message;
+
+    private String status;
 
     public String getName() {
         return name;
@@ -67,6 +71,14 @@ public class Contact {
         this.message = message;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -77,4 +89,5 @@ public class Contact {
                 ", message='" + message + '\'' +
                 '}';
     }
+
 }

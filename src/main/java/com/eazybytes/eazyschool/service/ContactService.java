@@ -1,21 +1,23 @@
 package com.eazybytes.eazyschool.service;
 
+import com.eazybytes.eazyschool.constants.EazySchoolConstants;
 import com.eazybytes.eazyschool.controller.ContactController;
 import com.eazybytes.eazyschool.model.Contact;
+import com.eazybytes.eazyschool.repository.ContactRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
+import java.time.LocalDateTime;
 
 @Service
-//@RequestScope
-//@SessionScope
-@ApplicationScope
 public class ContactService {
 
-    private int counter = 0;
+    @Autowired
+    private ContactRepository contactRepository;
 
     private static Logger log = LoggerFactory.getLogger(ContactService.class.getName());
 
@@ -25,15 +27,13 @@ public class ContactService {
 
     public boolean saveMessageDetail(Contact contact) {
         boolean isSaved = true;
-        log.info(contact.toString());
+        contact.setStatus(EazySchoolConstants.OPEN);
+        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
+        contact.setCreatedAt(LocalDateTime.now());
+        int result = contactRepository.saveContactMsg(contact);
+        if (result > 0)
+            isSaved = true;
         return isSaved;
     }
 
-    public int getCounter() {
-        return counter;
-    }
-
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
 }
