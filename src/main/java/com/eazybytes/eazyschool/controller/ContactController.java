@@ -5,12 +5,17 @@ import com.eazybytes.eazyschool.service.ContactService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class ContactController {
@@ -38,12 +43,26 @@ public class ContactController {
 //    }
 
     @RequestMapping(value = "/saveMsg" ,method = RequestMethod.POST)
-    public String saveMessage(Contact contact, Errors errors) {
+    public String saveMessage(@ModelAttribute("contact") Contact contact, Errors errors) {
         if (errors.hasErrors()){
             log.error("Contact from validation failed due to : " + errors.toString());
             return "contact.html";
         }
         contactService.saveMessageDetail(contact);
         return "redirect:/contact";
+    }
+
+    @RequestMapping("/displayMessages")
+    public ModelAndView displayMessages(Model model) {
+        List<Contact> contactList = contactService.findOpenMessages();
+        ModelAndView modelAndView = new ModelAndView("messages.html");
+        modelAndView.addObject("contactMessages", contactList);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/closeMessage", method = RequestMethod.GET)
+    public String closeMessage(@RequestParam int id, Authentication authentication) {
+        contactService.updateMessageStatus(id, authentication.getName());
+        return "redirect:;/displayMessages";
     }
 }

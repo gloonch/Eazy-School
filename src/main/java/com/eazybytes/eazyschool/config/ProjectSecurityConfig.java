@@ -14,6 +14,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/h2-console/**").and()
                 .authorizeRequests()
                 .mvcMatchers("/dashboard").authenticated()
+                .mvcMatchers("/displayMessages").hasRole("ADMIN")
                 .mvcMatchers("/home").permitAll()
                 .mvcMatchers("/holidays/**").permitAll()
                 .mvcMatchers("/contact").permitAll()
@@ -36,7 +37,7 @@ public class ProjectSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user").password("12345").roles("USER")
                 .and()
-                .withUser("admin").password("54321").roles("USER", "ADMIN")
+                .withUser("admin").password("54321").roles("ADMIN")
                 .and().passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }

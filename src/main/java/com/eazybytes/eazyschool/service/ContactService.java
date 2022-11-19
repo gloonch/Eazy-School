@@ -7,11 +7,13 @@ import com.eazybytes.eazyschool.repository.ContactRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ContactService {
@@ -35,5 +37,20 @@ public class ContactService {
             isSaved = true;
         return isSaved;
     }
+
+    public List<Contact> findOpenMessages() {
+//        return contactRepository.findMessagesByStatus(EazySchoolConstants.OPEN);
+        return null;
+    }
+
+    public boolean updateMessageStatus(int id, String updatedBy) {
+        boolean isUpdated = false;
+//        int result = contactRepository.updateMessageStatus(id, EazySchoolConstants.CLOSE, updatedBy);
+//        if (result > 0)
+//            isUpdated = true;
+
+        return isUpdated;
+    }
+
 
 }
