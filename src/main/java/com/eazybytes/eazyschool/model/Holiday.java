@@ -1,21 +1,25 @@
 package com.eazybytes.eazyschool.model;
 
-import java.lang.reflect.Type;
+import javax.persistence.*;
 
-public class Holiday {
 
-    private final String day;
-    private final String reason;
-    private final Type type;
+@Entity
+@Table(name = "holidays")
+public class Holiday extends BaseEntity {
+
+    @Id
+    private String day;
+
+    private String reason;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    public Holiday() {
+    }
 
     public enum Type {
         FESTIVAL, FEDERAL, TRADITIONAL
-    }
-
-    public Holiday(String day, String reason, Type type) {
-        this.day = day;
-        this.reason = reason;
-        this.type = type;
     }
 
     public String getDay() {

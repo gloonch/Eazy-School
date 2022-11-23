@@ -1,12 +1,21 @@
 package com.eazybytes.eazyschool.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "contact_msg")
 public class Contact extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    @Column(name = "contact_id")
     private int contact_id;
 
     @NotBlank(message = "Name must not be blank")
@@ -30,6 +39,14 @@ public class Contact extends BaseEntity {
     private String message;
 
     private String status;
+
+    public int getContact_id() {
+        return contact_id;
+    }
+
+    public void setContact_id(int contact_id) {
+        this.contact_id = contact_id;
+    }
 
     public String getName() {
         return name;
