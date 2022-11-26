@@ -20,7 +20,13 @@ public class FieldValueMatchValidator implements ConstraintValidator<FieldsValue
         } else {
             return fieldMatchValue == null;
         }
-    }
+//        if (fieldValue != null) {
+//            if (fieldValue.toString().startsWith("$2a")){
+//                return true;
+//            } else {
+//                return fieldValue.equals(fieldMatchValue);
+//            }
+        }
 
     @Override
     public void initialize(FieldsValueMatch constraintAnnotation) {

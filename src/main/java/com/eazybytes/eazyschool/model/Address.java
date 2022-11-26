@@ -33,7 +33,7 @@ public class Address extends BaseEntity {
 
     @NotBlank(message="Zip Code must not be blank")
     @Pattern(regexp="(^$|[0-9]{5})",message = "Zip Code must be 5 digits")
-    private int zipCode;
+    private String zipCode;
 
     public int getAddressId() {
         return addressId;
@@ -75,11 +75,11 @@ public class Address extends BaseEntity {
         this.state = state;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 }
