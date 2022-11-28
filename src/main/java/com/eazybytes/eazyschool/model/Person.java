@@ -59,6 +59,10 @@ public class Person extends BaseEntity {
     @JoinColumn(name = "address_id", nullable = true, referencedColumnName = "addressId")
     private Address address;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "class_id", referencedColumnName = "classId")
+    private EazyClass eazyClass;
+
 
 
     public int getPersonId() {
@@ -131,5 +135,13 @@ public class Person extends BaseEntity {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public EazyClass getEazyClass() {
+        return eazyClass;
+    }
+
+    public void setEazyClass(EazyClass eazyClass) {
+        this.eazyClass = eazyClass;
     }
 }
