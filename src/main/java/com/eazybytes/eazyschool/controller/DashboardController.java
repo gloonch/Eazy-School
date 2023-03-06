@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Controller
 public class DashboardController {
@@ -21,6 +22,9 @@ public class DashboardController {
         Person person = personRepository.readByEmail(authentication.getName());
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", authentication.getAuthorities().toString());
+        if (!Objects.isNull(person.getEazyClass())) {
+            model.addAttribute("enrolledClass", person.getEazyClass().getName());
+        }
         session.setAttribute("loggedInPerson", person);
         return "dashboard.html";
     }

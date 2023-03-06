@@ -24,7 +24,7 @@ public class EazyClass extends BaseEntity {
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
-    @OneToMany(mappedBy = "eazyClass", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Person.class)
+    @OneToMany(mappedBy = "eazyClass", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, targetEntity = Person.class)
     private List<Person> persons;
 
     public int getClassId() {

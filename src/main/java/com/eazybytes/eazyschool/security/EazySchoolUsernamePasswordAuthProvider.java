@@ -31,6 +31,7 @@ public class EazySchoolUsernamePasswordAuthProvider implements AuthenticationPro
         String email = authentication.getName();
         String password = authentication.getCredentials().toString();
         Person person = personRepository.readByEmail(email);
+//        if (person != null && person.getPersonId() > 0 )
         if (person != null && person.getPersonId() > 0 && passwordEncoder.matches(password, person.getPwd()))
             return new UsernamePasswordAuthenticationToken(person.getEmail(), null, getGrantedAuthorities(person.getRoles()));
         else
